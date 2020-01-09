@@ -1,0 +1,42 @@
+324 HW1 Hunter Casillas
+
+Level 1:
+INPUT: BANDIT_LEVEL=1 ./level1
+OUTPUT: 6/Q2LbNWe5a4KTk8ymUVrKuQ2J8B+/2+
+
+Level 2:
+INPUT: ./level2 2>/dev/null
+OUTPUT: 4utUC/pa/7fK5zU0Q3qPKPbmicmozKSc
+
+Level 3:
+INPUT: grep '^eget' level3.txt | awk '{ print $2 }'
+OUTPUT: WvmlqTFW+sn+TgJD9nEifb2cFNaDYaL3
+
+Level 4:
+INPUT: sort level4.txt | awk 'END { print }' | base64 -d
+OUTPUT: eAyRe5KDtiqxDoeqVCABnj6hBMhCR/Bd
+
+Level 5:
+INPUT: dig -t txt +short bandit.cs324.internet-measurement.cs.byu.edu | md5sum | cut -c1-32
+OUTPUT: d9addec2125e48f5a24be719eb35f275
+
+Level 6:
+INPUT: tar -xOzf level6.tar.gz | tr 'F' 'L'
+OUTPUT: Jp1NL6O/H7uPUesDQ7r1TPLH2oGlTyHn
+
+Level 7:
+INPUT: curl https://imaal.byu.edu/cs324/bandit.txt | sha1sum | cut -c1-32
+OUTPUT: fb7cf39e8e0becdcd0468863cdc653e6
+
+Level 8:
+INPUT:
+./level8
+Ctrl+Z
+fg
+OUTPUT: Uoux218Rtfi8Eg1UmIfZ9m4NErlTW+d9
+
+Level 9:
+INPUT: sort level9.txt | uniq -c | sort -r | head -1|  xargs | cut -d" " -f2-
+OUTPUT: WWvs5PXxiY81gLjw60+mBccj6bGACwdU
+
+I completed the tmux exercises.
