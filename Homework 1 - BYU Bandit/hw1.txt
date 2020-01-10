@@ -36,7 +36,7 @@ fg
 OUTPUT: Uoux218Rtfi8Eg1UmIfZ9m4NErlTW+d9
 
 Level 9:
-INPUT: sort level9.txt | uniq -c | sort -r | head -1|  xargs | cut -d" " -f2-
+INPUT: sort level9.txt | uniq -c | sort -r | head -1 | xargs | cut -d" " -f2-
 OUTPUT: WWvs5PXxiY81gLjw60+mBccj6bGACwdU
 
 I completed the tmux exercises.
