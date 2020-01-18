@@ -25,7 +25,7 @@ INPUT: tar -xOzf level6.tar.gz | tr 'F' 'L'
 OUTPUT: Jp1NL6O/H7uPUesDQ7r1TPLH2oGlTyHn
 
 Level 7:
-INPUT: curl https://imaal.byu.edu/cs324/bandit.txt | sha1sum | cut -c1-32
+INPUT: curl --silent https://imaal.byu.edu/cs324/bandit.txt | sha1sum | cut -c1-32
 OUTPUT: fb7cf39e8e0becdcd0468863cdc653e6
 
 Level 8:

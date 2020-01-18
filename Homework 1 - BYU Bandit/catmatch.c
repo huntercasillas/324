@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 int main(int argc, char* argv []) {
     // Check to see if input file was included
@@ -14,6 +15,9 @@ int main(int argc, char* argv []) {
         printf("You must include the command line input file.\n");
         return 0;
     }
+    
+    // Print pid
+    printf("%d\n", getpid());
         
     // Open input file
     FILE* input;
