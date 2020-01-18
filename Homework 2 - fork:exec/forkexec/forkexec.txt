@@ -1,0 +1,161 @@
+324 HW2 Hunter Casillas
+
+Part 1:
+1) exec.c prints out its pid and sleeps for 30 seconds. 
+If there is NOT a program included as a command line argument, it exits.
+If there is a program included, it runs execve() on the program and passes the newenviron char pointer.
+After the passed program finishes running, it prints out the last statement.
+
+2) The final print statement will be executed if a program is passed and it finishes running.
+
+
+Part 2:
+3) ./exec /bin/cat
+Program "./exec" has pid 5699. Sleeping.
+Running exec of "/bin/cat"
+
+4) ps -p 5699 -o user,pid,ppid,state,comm
+USER       PID  PPID S COMMAND
+casillas  5699  5612 S exec
+
+ps -p 5699 -o user,pid,ppid,state,comm
+USER       PID  PPID S COMMAND
+casillas  5699  5612 S cat
+
+5) The two ps commands had the same pid, ppid, and states.
+They had different executed commands.
+This is because the function that was called inside of exec executed /bin/cat in the same process.
+
+6) ./exec ./nonexistent
+Program "./exec" has pid 6747. Sleeping.
+Running exec of "./nonexistent"
+End of program "./exec".
+
+ps -p 6747 -o user,pid,ppid,state,comm 
+USER       PID  PPID S COMMAND
+casillas  6747  6627 S exec
+
+ps -p 6747 -o user,pid,ppid,state,comm 
+USER       PID  PPID S COMMAND
+
+The program instantly terminated after it finished running.
+A fork needs to be called in order to continue the process.
+After running execve() on the nonexistent program, ./exec with the pid of 6747 killed itself.
+
+
+Part 3:
+7) fork.c calls a series of fork() functions that contain sleep statements.
+It has sections (A, B, C, D) for parent and child processes. 
+Each of these sections have their own sleep and print statements and some include exit statements.
+
+8) 
+A: Both
+B: Child
+C: Parent
+D: Neither
+
+
+Part 4:
+9) ./fork 
+Starting program; process has pid 11231
+Section A;  pid 11231
+Section A;  pid 11232
+Section C
+Section B
+Section B done sleeping
+Section C done sleeping
+
+ps -p 11231,11232 --forest -o user,pid,ppid,state,comm
+USER       PID  PPID S COMMAND
+casillas 11231 11159 S fork
+casillas 11232 11231 S  \_ fork
+
+ps -p 11231,11232 --forest -o user,pid,ppid,state,comm
+USER       PID  PPID S COMMAND
+casillas 11231 11159 S fork
+casillas 11232 11231 Z  \_ fork <defunct>
+
+10) The two ps commands had the same pid and ppid for the given processes.
+After section b finished sleeping, the child state went from sleeping to zombie mode (S to Z).
+This is because it hit the exit(0) in the code. 
+The child got to the end of its branch and finished before the parent did.
+
+11) wait(0);
+Put this line of code between the two sleep statements in section C.
+
+12) ./fork 
+Starting program; process has pid 12151
+Section A;  pid 12151
+Section A;  pid 12152
+Section C
+Section B
+Section C done sleeping
+
+ps -p 12151,12152 --forest -o user,pid,ppid,state,comm
+USER       PID  PPID S COMMAND
+casillas 12151 11181 S fork
+casillas 12152 12151 S  \_ fork
+
+ps -p 12151,12152 --forest -o user,pid,ppid,state,comm
+USER       PID  PPID S COMMAND
+casillas 12152     1 S fork
+
+13) The parent process exited and terminated because it finished first. 
+The child process had its ppid changed to 1 instead of the previous ppid 
+because the parent process was terminated.
+
+
+Part 5:
+14) cat fork-output.txt 
+BEFORE FORK
+Section A
+Section C
+Section A
+Section B
+
+15) The parent process runs through the program before the child starts its branch. 
+We know because section A and section C are run before 
+the child process even prints that it's in section A and section B.
+
+16) ./fork
+Starting program; process has pid 14883
+Section A;  pid 14883
+Section A;  pid 14884
+Section B
+Section B done sleeping
+hello from Section B
+Section C
+Section C done sleeping
+
+
+Part 6:
+17) echo foobar | ./fork /bin/cat
+Starting program; process has pid 15363
+Section A;  pid 15363
+Section A;  pid 15364
+Section B
+Section B done sleeping
+Program "./fork" has pid 15364. Sleeping.
+Running exec of "/bin/cat"
+foobar
+Section C
+Section C done sleeping
+
+18) echo foobar | ./fork /bin/cat
+Starting program; process has pid 15663
+Section A;  pid 15663
+Section A;  pid 15664
+Section B
+Section B done sleeping
+Program "./fork" has pid 15664. Sleeping.
+Running exec of "/bin/cat"
+Section C
+Section C done sleeping
+
+cat fork-output.txt 
+BEFORE FORK
+Section A
+Section A
+Section B
+foobar
+Section C
