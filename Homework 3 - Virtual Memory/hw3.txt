@@ -1,0 +1,33 @@
+Hunter Casillas - NetID: casillas
+
+9.11:
+A:
+00001001111100
+
+B:
+VPN - 0x09
+TLB Index - 0x01
+TLB Tag - 0x02
+TLB Hit - None
+Page Fault - None
+PPN - 0x17
+
+C:
+010111111100
+
+
+
+9.12:
+A:
+00001110101001
+
+B:
+VPN - 0x0E
+TLB Index - 0x02
+TLB Tag - 0x03
+TLB Hit - None
+Page Fault - None
+PPN - 0x11
+
+C:
+010001101001
