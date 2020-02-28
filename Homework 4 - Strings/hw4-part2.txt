@@ -1,0 +1,33 @@
+Hunter Casillas
+CS 324 Homework 4
+February 20th 2020
+
+
+1.
+- The provided implementation doesn't work because == compares the addresses, not the actual characters.
+- The implementation must be changed to use strcmp instead of ==.
+
+
+2. 
+- This implementation doesn't work because the string "Hello World!" is a string literal and not a character array like str. 
+- In order to fix this, the function must use strcpy because strings are stored in read-only memory.
+
+
+3. 
+- This function doesn't work because the memory for the copied string was not allocated properly on the stack. 
+- To fix this function we must use malloc to allocate the memory needed for the string with sizeof(str).
+
+
+4. 
+- The provided function doesn't work because there isn't a way to determine the full size of the array. Array parameters in C point to the first element instead of the entire thing.
+- The function must have the array size passed as an additional parameter using sizeof.
+
+
+5. 
+- This implementation doesn't work because the start of the substring being passed to memcpy is a char* - when it should be a pointer. 
+- To fix this implementation, we have to dereference the pointer. That way it copies the memory at the address instead of the actual address.
+
+
+6. 
+- The last function doesn't work because strtok puts a null character at the delimiter in the original string.
+- This can be fixed by copying the string to a temporary variable, and using the temporary one with strtok instead.
